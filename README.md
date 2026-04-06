@@ -19,7 +19,7 @@ To start using CVAT, log in to your account.
   - Google  
   - GitHub  
 
-![Login CVAT](assets/cvat/login%20cvat.gif)
+![Login CVAT](assets/cvat/logincvat.gif)
 
 ---
 
