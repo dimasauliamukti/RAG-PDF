@@ -116,6 +116,7 @@ The dataset will be downloaded as a `.zip` file.
 ### 1. Extract Dataset
 Extract the downloaded dataset and move it to your desired project directory.
 
+
 ### 2. Create Folder Structure
 Create the following folder structure:
 ```dataset/
@@ -127,6 +128,7 @@ Create the following folder structure:
 │ └── labels/
 ```
 
+
 ### 3. Split Dataset (Train & Validation)
 Split the dataset into training and validation sets by running:
 
@@ -134,6 +136,7 @@ Split the dataset into training and validation sets by running:
 python split.py
 ```
 Make sure to adjust the directory paths inside the script to match your local setup (especially for `train/labels` and `val/labels`).
+
 
 ### 4. Move Images to Corresponding Folders
 After splitting labels, move the images into their corresponding folders:
@@ -146,6 +149,7 @@ You can use the provided script:
 python moving_image.py
 ```
 Ensure all directory paths inside the script are correctly configured.
+
 
 ### 5. Configure Dataset (data.yaml)
 Open the `data.yaml` file and adjust it as follows:
@@ -165,6 +169,7 @@ Notes:
 - kpt_shape → format is [num_keypoints, 3]
     - (x, y, visibility) for each keypoint
 ```
+
 
 ### 6. Train the Model
 Run the training script:
@@ -186,14 +191,18 @@ https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_multiclas
 
 Stored it in models folder
 
+
 ### 2. Load Input Image
 Read the input image using OpenCV or another image processing library.
+
 
 ### 3. Crop Upper Body Region
 Crop the image to focus on the face area to reduce noise and irrelevant regions using haar cascade.
 
+
 ### 4. Resize to 640×640
 Resize or crop the image to **640×640**, match the input size of the model.
+
 
 ### 5. Person Segmentation
 Perform segmentation using MediaPipe and extract:
@@ -203,11 +212,13 @@ Perform segmentation using MediaPipe and extract:
 
 This helps isolate the human region from the background.
 
+
 ### 6. Neck Area Detection
 Run YOLO keypoint model to detect keypoints:
 - Right neck–shoulder
 - Left neck–shoulder
 - Neck center
+
 
 ### 7. Keypoint Refinement
 Each keypoint is refined using a two-stage contour-based approach.
@@ -216,6 +227,7 @@ Each keypoint is refined using a two-stage contour-based approach.
 Create bounding boxes around:
 - Left neck–shoulder point
 - Right neck–shoulder point
+
 
 **2. Contour Detection**
 Within each ROI:
@@ -227,6 +239,7 @@ Initial Contour Snapping (adjusment_point)
     - Select:
       Rightmost point (right side)
       Leftmost point (left side)
+
 
 **3. Contour-Based Refinement (refining_point)**
 a. Contour Detection
@@ -251,22 +264,27 @@ f. Final Adjustment (Snap to Contour)
    - Apply adjusment_point again
    - Align point precisely to contour edge
 
+
 **4. Validation**
 - Use refined point if close enough
 - Else fallback
 
+
 ## 8. Neck Center Handling
 - Directly from YOLO
 - No refinement
+
 
 ## 9. Visualization (Optional)
 - Green: YOLO keypoints
 - Red: refined points
 - Blue: original coordinates
 
+
 ## 10. Coordinate Mapping
 1. Resized → Cropped  
 2. Cropped → Original  
+
 
 ## 11. Export Output
 ```json
@@ -281,6 +299,7 @@ f. Final Adjustment (Snap to Contour)
     }
 }
 ```
+
 
 ## ▶️ How to Use
 
